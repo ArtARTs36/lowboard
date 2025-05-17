@@ -1,0 +1,778 @@
+openapi: 3.0.0
+info:
+  version: '1.0'
+  title: Pages API
+servers:
+  - url: http://localhost:8000/api/v1/
+paths:
+  /definition:
+    get:
+      summary: Get Config
+      operationId: GetDefinition
+      responses:
+        200:
+          description: Get config
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Definition'
+
+  /pages:
+    get:
+      summary: Get list of all pages
+      responses:
+        '200':
+          description: A list of pages
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Page'
+    post:
+      summary: Create a new page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageCreate'
+      responses:
+        '201':
+          description: Page created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+  /pages/{pageName}:
+    parameters:
+      - in: path
+        name: pageName
+        required: true
+        schema:
+          type: string
+        description: Name of the page to retrieve/update/delete
+    get:
+      summary: Retrieve details about a specific page
+      responses:
+        '200':
+          description: Details of the requested page
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+    put:
+      summary: Update an existing page
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageUpdate'
+      responses:
+        '200':
+          description: Page updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Page'
+    delete:
+      summary: Delete a page by its name
+      operationId: DeletePage
+      responses:
+        '204':
+          description: Page deleted successfully
+
+  # Component CRUD operations
+  /components:
+    get:
+      summary: Get list of all components
+      responses:
+        '200':
+          description: A list of components
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Component'
+    post:
+      summary: Create a new component
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentCreate'
+      responses:
+        '201':
+          description: Component created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+  /components/{componentName}:
+    parameters:
+      - in: path
+        name: componentName
+        required: true
+        schema:
+          type: string
+        description: Name of the component to retrieve/update/delete
+    get:
+      summary: Retrieve details about a specific component
+      operationId: GetComponent
+      responses:
+        '200':
+          description: Details of the requested component
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+    put:
+      summary: Update an existing component
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ComponentUpdate'
+      responses:
+        '200':
+          description: Component updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Component'
+    delete:
+      summary: Delete a component by its name
+      responses:
+        '204':
+          description: Component deleted successfully
+
+  # Page Components CRUD operations
+  /page-components:
+    get:
+      summary: Get list of all page components
+      operationId: ListPageComponents
+      responses:
+        '200':
+          description: A list of page components
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PageComponent'
+    post:
+      summary: Create a new page component
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageComponentCreate'
+      responses:
+        '201':
+          description: Page component created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageComponent'
+  /page-components/{componentId}:
+    parameters:
+      - in: path
+        name: componentId
+        required: true
+        schema:
+          type: string
+        description: ID of the page component to retrieve/update/delete
+    get:
+      summary: Retrieve details about a specific page component
+      operationId: GetPageComponent
+      responses:
+        '200':
+          description: Details of the requested page component
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageComponent'
+    put:
+      summary: Update an existing page component
+      operationId: PutPageComponent
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PageComponentUpdate'
+      responses:
+        '200':
+          description: Page component updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PageComponent'
+    delete:
+      summary: Delete a page component by its ID
+      operationId: DeletePageComponent
+      responses:
+        '204':
+          description: Page component deleted successfully
+
+  # APIs CRUD operations
+  /apis:
+    get:
+      summary: Get list of all APIs
+      responses:
+        '200':
+          description: A list of APIs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Api'
+    post:
+      summary: Create a new API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiCreate'
+      responses:
+        '201':
+          description: API created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api'
+  /apis/{apiId}:
+    parameters:
+      - in: path
+        name: apiId
+        required: true
+        schema:
+          type: string
+        description: ID of the API to retrieve/update/delete
+    get:
+      summary: Retrieve details about a specific API
+      responses:
+        '200':
+          description: Details of the requested API
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api'
+    put:
+      summary: Update an existing API
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiUpdate'
+      responses:
+        '200':
+          description: API updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Api'
+    delete:
+      summary: Delete an API by its ID
+      responses:
+        '204':
+          description: API deleted successfully
+
+  # Sidebar CRUD operations
+  /sidebars:
+    get:
+      summary: Get list of all sidebars
+      responses:
+        '200':
+          description: A list of sidebars
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Sidebar'
+    post:
+      summary: Create a new sidebar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SidebarCreate'
+      responses:
+        '201':
+          description: Sidebar created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sidebar'
+  /sidebars/{sidebarName}:
+    parameters:
+      - in: path
+        name: sidebarName
+        required: true
+        schema:
+          type: string
+        description: Name of the sidebar to retrieve/update/delete
+    get:
+      summary: Retrieve details about a specific sidebar
+      responses:
+        '200':
+          description: Details of the requested sidebar
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sidebar'
+    put:
+      summary: Update an existing sidebar
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SidebarUpdate'
+      responses:
+        '200':
+          description: Sidebar updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Sidebar'
+    delete:
+      summary: Delete a sidebar by its name
+      responses:
+        '204':
+          description: Sidebar deleted successfully
+
+  # Sidebar Links CRUD operations
+  /sidebar-links:
+    get:
+      summary: Get list of all sidebar links
+      responses:
+        '200':
+          description: A list of sidebar links
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SidebarLink'
+    post:
+      summary: Create a new sidebar link
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SidebarLinkCreate'
+      responses:
+        '201':
+          description: Sidebar link created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SidebarLink'
+  /sidebar-links/{linkId}:
+    parameters:
+      - in: path
+        name: linkId
+        required: true
+        schema:
+          type: string
+        description: ID of the sidebar link to retrieve/update/delete
+    get:
+      summary: Retrieve details about a specific sidebar link
+      responses:
+        '200':
+          description: Details of the requested sidebar link
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SidebarLink'
+    put:
+      summary: Update an existing sidebar link
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SidebarLinkUpdate'
+      responses:
+        '200':
+          description: Sidebar link updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SidebarLink'
+    delete:
+      summary: Delete a sidebar link by its ID
+      responses:
+        '204':
+          description: Sidebar link deleted successfully
+
+components:
+  schemas:
+    Definition:
+      type: object
+      required: [apis, pages, components, sidebars]
+      properties:
+        apis:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DefinitionAPI'
+        pages:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefinitionPage'
+        components:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DefinitionComponent'
+        sidebars:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DefinitionSidebar'
+
+    DefinitionComponent:
+      type: object
+      required: [name]
+      properties:
+        name:
+          type: string
+
+    DefinitionAPI:
+      type: object
+      required: [id, path, methods]
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+        methods:
+          type: object
+          additionalProperties:
+            $ref: '#/components/schemas/DefinitionAPIMethod'
+
+    DefinitionAPIMethod:
+      type: object
+      required: [name, path]
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+
+    DefinitionPage:
+      type: object
+      required: [name, path, title, components]
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+        components:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefinitionPageComponent'
+
+    Map:
+      type: object
+      additionalProperties: true
+
+    DefinitionPageComponent:
+      type: object
+      required: [id, baseComponentName, config]
+      properties:
+        id:
+          type: string
+        baseComponentName:
+          type: string
+        config:
+          $ref: '#/components/schemas/Map'
+
+    DefinitionSidebar:
+      type: object
+      required: [name, links]
+      properties:
+        name:
+          type: string
+        links:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefinitionSidebarLink'
+
+    DefinitionSidebarLink:
+      type: object
+      required: [pageName, title, children]
+      properties:
+        pageName:
+          type: string
+        title:
+          type: string
+        children:
+          type: array
+          items:
+            $ref: '#/components/schemas/DefinitionSidebarLink'
+
+    Page:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - name
+        - path
+        - title
+        - createdAt
+    PageCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+      required:
+        - name
+        - path
+        - title
+    PageUpdate:
+      type: object
+      required: [name, path, title]
+      properties:
+        name:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+
+    Component:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - name
+        - title
+        - createdAt
+        - updatedAt
+    ComponentCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+      required:
+        - name
+        - title
+    ComponentUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        title:
+          type: string
+
+    PageComponent:
+      type: object
+      properties:
+        id:
+          type: string
+        pageName:
+          type: string
+        baseComponentName:
+          type: string
+        config:
+          $ref: '#/components/schemas/PageComponentConfig'
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - pageName
+        - baseComponentName
+        - config
+        - createdAt
+    PageComponentCreate:
+      type: object
+      properties:
+        pageName:
+          type: string
+        baseComponentName:
+          type: string
+        config:
+          $ref: '#/components/schemas/PageComponentConfig'
+      required:
+        - pageName
+        - baseComponentName
+        - config
+    PageComponentUpdate:
+      type: object
+      required: [pageName, baseComponentName, config]
+      properties:
+        pageName:
+          type: string
+        baseComponentName:
+          type: string
+        config:
+          $ref: '#/components/schemas/PageComponentConfig'
+
+    PageComponentConfig:
+      type: object
+      additionalProperties: true
+
+    Api:
+      type: object
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - path
+        - createdAt
+        - updatedAt
+    ApiCreate:
+      type: object
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+      required:
+        - id
+        - path
+    ApiUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+        path:
+          type: string
+
+    Sidebar:
+      type: object
+      properties:
+        name:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - name
+        - createdAt
+        - updatedAt
+    SidebarCreate:
+      type: object
+      properties:
+        name:
+          type: string
+      required:
+        - name
+    SidebarUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+
+    SidebarLink:
+      type: object
+      properties:
+        id:
+          type: string
+        sidebarName:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+        parentId:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - sidebarName
+        - path
+        - title
+        - createdAt
+        - updatedAt
+    SidebarLinkCreate:
+      type: object
+      properties:
+        id:
+          type: string
+        sidebarName:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+        parentId:
+          type: string
+      required:
+        - id
+        - sidebarName
+        - path
+        - title
+    SidebarLinkUpdate:
+      type: object
+      properties:
+        id:
+          type: string
+        sidebarName:
+          type: string
+        path:
+          type: string
+        title:
+          type: string
+        parentId:
+          type: string

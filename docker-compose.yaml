@@ -1,0 +1,17 @@
+services:
+  registry:
+    image: golang:1.23.8
+    working_dir: /app
+    volumes:
+      - ./registry:/app
+      - ./.data/registry.db:/var/data/sqlite
+    ports:
+      - 8000:8000
+    environment:
+      CGO_ENABLED: 1
+      LOWBOARD_DB_DRIVER: sqlite
+      LOWBOARD_DB_DSN: /var/data/sqlite/main.db
+    command:
+      - go
+      - run
+      - ./cmd/registry/main.go
