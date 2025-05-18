@@ -11,6 +11,7 @@ services:
       CGO_ENABLED: 1
       LOWBOARD_DB_DRIVER: sqlite
       LOWBOARD_DB_DSN: /var/data/sqlite/main.db
+      LOWBOARD_HTTP_CLIENTS: localhost
     command:
       - go
       - run
