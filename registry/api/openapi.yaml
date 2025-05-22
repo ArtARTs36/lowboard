@@ -450,24 +450,26 @@ components:
 
     DefinitionAPI:
       type: object
-      required: [id, path, methods]
+      required: [id, path, actions]
       properties:
         id:
           type: string
         path:
           type: string
-        methods:
+        actions:
           type: object
           additionalProperties:
-            $ref: '#/components/schemas/DefinitionAPIMethod'
+            $ref: '#/components/schemas/DefinitionAPIAction'
 
-    DefinitionAPIMethod:
+    DefinitionAPIAction:
       type: object
-      required: [name, path]
+      required: [name, path, method]
       properties:
         name:
           type: string
         path:
+          type: string
+        method:
           type: string
 
     DefinitionPage:

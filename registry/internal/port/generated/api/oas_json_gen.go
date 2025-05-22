@@ -863,15 +863,15 @@ func (s *DefinitionAPI) encodeFields(e *jx.Encoder) {
 		e.Str(s.Path)
 	}
 	{
-		e.FieldStart("methods")
-		s.Methods.Encode(e)
+		e.FieldStart("actions")
+		s.Actions.Encode(e)
 	}
 }
 
 var jsonFieldsNameOfDefinitionAPI = [3]string{
 	0: "id",
 	1: "path",
-	2: "methods",
+	2: "actions",
 }
 
 // Decode decodes DefinitionAPI from json.
@@ -907,15 +907,15 @@ func (s *DefinitionAPI) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"path\"")
 			}
-		case "methods":
+		case "actions":
 			requiredBitSet[0] |= 1 << 2
 			if err := func() error {
-				if err := s.Methods.Decode(d); err != nil {
+				if err := s.Actions.Decode(d); err != nil {
 					return err
 				}
 				return nil
 			}(); err != nil {
-				return errors.Wrap(err, "decode field \"methods\"")
+				return errors.Wrap(err, "decode field \"actions\"")
 			}
 		default:
 			return d.Skip()
@@ -974,14 +974,14 @@ func (s *DefinitionAPI) UnmarshalJSON(data []byte) error {
 }
 
 // Encode implements json.Marshaler.
-func (s *DefinitionAPIMethod) Encode(e *jx.Encoder) {
+func (s *DefinitionAPIAction) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
 	e.ObjEnd()
 }
 
 // encodeFields encodes fields.
-func (s *DefinitionAPIMethod) encodeFields(e *jx.Encoder) {
+func (s *DefinitionAPIAction) encodeFields(e *jx.Encoder) {
 	{
 		e.FieldStart("name")
 		e.Str(s.Name)
@@ -990,17 +990,22 @@ func (s *DefinitionAPIMethod) encodeFields(e *jx.Encoder) {
 		e.FieldStart("path")
 		e.Str(s.Path)
 	}
+	{
+		e.FieldStart("method")
+		e.Str(s.Method)
+	}
 }
 
-var jsonFieldsNameOfDefinitionAPIMethod = [2]string{
+var jsonFieldsNameOfDefinitionAPIAction = [3]string{
 	0: "name",
 	1: "path",
+	2: "method",
 }
 
-// Decode decodes DefinitionAPIMethod from json.
-func (s *DefinitionAPIMethod) Decode(d *jx.Decoder) error {
+// Decode decodes DefinitionAPIAction from json.
+func (s *DefinitionAPIAction) Decode(d *jx.Decoder) error {
 	if s == nil {
-		return errors.New("invalid: unable to decode DefinitionAPIMethod to nil")
+		return errors.New("invalid: unable to decode DefinitionAPIAction to nil")
 	}
 	var requiredBitSet [1]uint8
 
@@ -1030,17 +1035,29 @@ func (s *DefinitionAPIMethod) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"path\"")
 			}
+		case "method":
+			requiredBitSet[0] |= 1 << 2
+			if err := func() error {
+				v, err := d.Str()
+				s.Method = string(v)
+				if err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"method\"")
+			}
 		default:
 			return d.Skip()
 		}
 		return nil
 	}); err != nil {
-		return errors.Wrap(err, "decode DefinitionAPIMethod")
+		return errors.Wrap(err, "decode DefinitionAPIAction")
 	}
 	// Validate required fields.
 	var failures []validate.FieldError
 	for i, mask := range [1]uint8{
-		0b00000011,
+		0b00000111,
 	} {
 		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
 			// Mask only required fields and check equality to mask using XOR.
@@ -1052,8 +1069,8 @@ func (s *DefinitionAPIMethod) Decode(d *jx.Decoder) error {
 				bitIdx := bits.TrailingZeros8(result)
 				fieldIdx := i*8 + bitIdx
 				var name string
-				if fieldIdx < len(jsonFieldsNameOfDefinitionAPIMethod) {
-					name = jsonFieldsNameOfDefinitionAPIMethod[fieldIdx]
+				if fieldIdx < len(jsonFieldsNameOfDefinitionAPIAction) {
+					name = jsonFieldsNameOfDefinitionAPIAction[fieldIdx]
 				} else {
 					name = strconv.Itoa(fieldIdx)
 				}
@@ -1074,27 +1091,27 @@ func (s *DefinitionAPIMethod) Decode(d *jx.Decoder) error {
 }
 
 // MarshalJSON implements stdjson.Marshaler.
-func (s *DefinitionAPIMethod) MarshalJSON() ([]byte, error) {
+func (s *DefinitionAPIAction) MarshalJSON() ([]byte, error) {
 	e := jx.Encoder{}
 	s.Encode(&e)
 	return e.Bytes(), nil
 }
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *DefinitionAPIMethod) UnmarshalJSON(data []byte) error {
+func (s *DefinitionAPIAction) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }
 
 // Encode implements json.Marshaler.
-func (s DefinitionAPIMethods) Encode(e *jx.Encoder) {
+func (s DefinitionAPIActions) Encode(e *jx.Encoder) {
 	e.ObjStart()
 	s.encodeFields(e)
 	e.ObjEnd()
 }
 
 // encodeFields implements json.Marshaler.
-func (s DefinitionAPIMethods) encodeFields(e *jx.Encoder) {
+func (s DefinitionAPIActions) encodeFields(e *jx.Encoder) {
 	for k, elem := range s {
 		e.FieldStart(k)
 
@@ -1102,14 +1119,14 @@ func (s DefinitionAPIMethods) encodeFields(e *jx.Encoder) {
 	}
 }
 
-// Decode decodes DefinitionAPIMethods from json.
-func (s *DefinitionAPIMethods) Decode(d *jx.Decoder) error {
+// Decode decodes DefinitionAPIActions from json.
+func (s *DefinitionAPIActions) Decode(d *jx.Decoder) error {
 	if s == nil {
-		return errors.New("invalid: unable to decode DefinitionAPIMethods to nil")
+		return errors.New("invalid: unable to decode DefinitionAPIActions to nil")
 	}
 	m := s.init()
 	if err := d.ObjBytes(func(d *jx.Decoder, k []byte) error {
-		var elem DefinitionAPIMethod
+		var elem DefinitionAPIAction
 		if err := func() error {
 			if err := elem.Decode(d); err != nil {
 				return err
@@ -1121,21 +1138,21 @@ func (s *DefinitionAPIMethods) Decode(d *jx.Decoder) error {
 		m[string(k)] = elem
 		return nil
 	}); err != nil {
-		return errors.Wrap(err, "decode DefinitionAPIMethods")
+		return errors.Wrap(err, "decode DefinitionAPIActions")
 	}
 
 	return nil
 }
 
 // MarshalJSON implements stdjson.Marshaler.
-func (s DefinitionAPIMethods) MarshalJSON() ([]byte, error) {
+func (s DefinitionAPIActions) MarshalJSON() ([]byte, error) {
 	e := jx.Encoder{}
 	s.Encode(&e)
 	return e.Bytes(), nil
 }
 
 // UnmarshalJSON implements stdjson.Unmarshaler.
-func (s *DefinitionAPIMethods) UnmarshalJSON(data []byte) error {
+func (s *DefinitionAPIActions) UnmarshalJSON(data []byte) error {
 	d := jx.DecodeBytes(data)
 	return s.Decode(d)
 }

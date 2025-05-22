@@ -7,7 +7,7 @@ type Group struct {
 	PageComponent *PageComponentRepository
 	Component     *ComponentRepository
 	API           *APIRepository
-	APIMethod     *APIMethodRepository
+	APIMethod     *APIActionRepository
 	Sidebar       *SidebarRepository
 	SidebarLink   *SidebarLinkRepository
 }
@@ -18,7 +18,7 @@ func NewGroup(db *sqlx.DB) *Group {
 		PageComponent: NewPageComponentRepository(db),
 		Component:     NewComponentRepository(db),
 		API:           NewAPIRepository(db),
-		APIMethod:     NewAPIMethodRepository(db),
+		APIMethod:     NewAPIActionRepository(db),
 		Sidebar:       NewSidebarRepository(db),
 		SidebarLink:   NewSidebarLinkRepository(db),
 	}

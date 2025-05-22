@@ -12,23 +12,23 @@ import (
 )
 
 const (
-	tableAPIMethods = "api_methods"
+	tableAPIActions = "api_actions"
 )
 
-type APIMethodRepository struct {
+type APIActionRepository struct {
 	db *sqlx.DB
 }
 
-func NewAPIMethodRepository(db *sqlx.DB) *APIMethodRepository {
-	return &APIMethodRepository{
+func NewAPIActionRepository(db *sqlx.DB) *APIActionRepository {
+	return &APIActionRepository{
 		db: db,
 	}
 }
 
-func (p *APIMethodRepository) List(ctx context.Context) ([]*model.APIMethod, error) {
-	var items []*model.APIMethod
+func (p *APIActionRepository) List(ctx context.Context) ([]*model.APIAction, error) {
+	var items []*model.APIAction
 
-	q, _, err := goqu.Select().From(tableAPIMethods).ToSQL()
+	q, _, err := goqu.Select().From(tableAPIActions).ToSQL()
 	if err != nil {
 		return nil, fmt.Errorf("build query: %w", err)
 	}
@@ -41,8 +41,8 @@ func (p *APIMethodRepository) List(ctx context.Context) ([]*model.APIMethod, err
 	return items, nil
 }
 
-func (p *APIMethodRepository) Get(ctx context.Context, id string) (*model.APIMethod, error) {
-	var item model.APIMethod
+func (p *APIActionRepository) Get(ctx context.Context, id string) (*model.APIAction, error) {
+	var item model.APIAction
 
 	q, _, err := goqu.Select().From(tableAPIs).Where(goqu.C("id").Eq(id)).ToSQL()
 	if err != nil {
@@ -57,7 +57,7 @@ func (p *APIMethodRepository) Get(ctx context.Context, id string) (*model.APIMet
 	return &item, nil
 }
 
-func (p *APIMethodRepository) Delete(ctx context.Context, id string) error {
+func (p *APIActionRepository) Delete(ctx context.Context, id string) error {
 	q, _, err := goqu.Delete(tableAPIs).Where(goqu.C("id").Eq(id)).ToSQL()
 	if err != nil {
 		return fmt.Errorf("build query: %w", err)
@@ -71,8 +71,8 @@ func (p *APIMethodRepository) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-func (p *APIMethodRepository) Create(ctx context.Context, pc *model.APIMethod) (*model.APIMethod, error) {
-	var newPage model.APIMethod
+func (p *APIActionRepository) Create(ctx context.Context, pc *model.APIAction) (*model.APIAction, error) {
+	var newPage model.APIAction
 
 	pc.CreatedAt = time.Now()
 
@@ -89,8 +89,8 @@ func (p *APIMethodRepository) Create(ctx context.Context, pc *model.APIMethod) (
 	return &newPage, nil
 }
 
-func (p *APIMethodRepository) Update(ctx context.Context, page *model.APIMethod) (*model.APIMethod, error) {
-	var newPage model.APIMethod
+func (p *APIActionRepository) Update(ctx context.Context, page *model.APIAction) (*model.APIAction, error) {
+	var newPage model.APIAction
 
 	page.UpdatedAt = sql.NullTime{
 		Valid: true,

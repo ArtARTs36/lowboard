@@ -4,14 +4,14 @@ services:
     working_dir: /app
     volumes:
       - ./registry:/app
-      - ./.data/registry.db:/var/data/sqlite
+      - ./.data/registry.db:/var/data/sqlite:rw
     ports:
       - 8000:8000
     environment:
       CGO_ENABLED: 1
       LOWBOARD_DB_DRIVER: sqlite
       LOWBOARD_DB_DSN: /var/data/sqlite/main.db
-      LOWBOARD_HTTP_CLIENTS: localhost
+      LOWBOARD_HTTP_CLIENTS: localhost,http://admin.my-pet.local:8333
     command:
       - go
       - run

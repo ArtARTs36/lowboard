@@ -7,10 +7,11 @@ type API struct {
 	Path string `db:"path"`
 }
 
-type APIMethod struct {
+type APIAction struct {
 	timestamps
 
 	Name        string `db:"name" goqu:"skipUpdate"`
+	Method      string `db:"method"`
 	ApiID       string `db:"api_id"`
 	Path        string `db:"path"`
 	Description string `db:"description"`

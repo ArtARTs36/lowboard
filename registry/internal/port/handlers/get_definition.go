@@ -28,20 +28,21 @@ func (h *Service) GetDefinition(ctx context.Context) (*api.Definition, error) {
 		return nil, fmt.Errorf("list apis: %w", err)
 	}
 
-	apiMethods, err := h.repo.APIMethod.List(ctx)
+	apiActions, err := h.repo.APIMethod.List(ctx)
 	if err != nil {
-		return nil, fmt.Errorf("list api method: %w", err)
+		return nil, fmt.Errorf("list api actions: %w", err)
 	}
 
-	apiMethodsMap := map[string]map[string]api.DefinitionAPIMethod{}
-	for _, method := range apiMethods {
-		if _, exists := apiMethodsMap[method.ApiID]; !exists {
-			apiMethodsMap[method.ApiID] = map[string]api.DefinitionAPIMethod{}
+	apiActionMap := map[string]map[string]api.DefinitionAPIAction{}
+	for _, action := range apiActions {
+		if _, exists := apiActionMap[action.ApiID]; !exists {
+			apiActionMap[action.ApiID] = map[string]api.DefinitionAPIAction{}
 		}
 
-		apiMethodsMap[method.ApiID][method.Name] = api.DefinitionAPIMethod{
-			Name: method.Name,
-			Path: method.Path,
+		apiActionMap[action.ApiID][action.Name] = api.DefinitionAPIAction{
+			Name:   action.Name,
+			Path:   action.Path,
+			Method: action.Method,
 		}
 	}
 
@@ -84,7 +85,7 @@ func (h *Service) GetDefinition(ctx context.Context) (*api.Definition, error) {
 		definition.Apis[ap.ID] = api.DefinitionAPI{
 			ID:      ap.ID,
 			Path:    ap.Path,
-			Methods: apiMethodsMap[ap.ID],
+			Actions: apiActionMap[ap.ID],
 		}
 	}
 

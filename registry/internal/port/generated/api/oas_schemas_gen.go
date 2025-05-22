@@ -266,7 +266,7 @@ func (s *Definition) SetSidebars(val DefinitionSidebars) {
 type DefinitionAPI struct {
 	ID      string               `json:"id"`
 	Path    string               `json:"path"`
-	Methods DefinitionAPIMethods `json:"methods"`
+	Actions DefinitionAPIActions `json:"actions"`
 }
 
 // GetID returns the value of ID.
@@ -279,9 +279,9 @@ func (s *DefinitionAPI) GetPath() string {
 	return s.Path
 }
 
-// GetMethods returns the value of Methods.
-func (s *DefinitionAPI) GetMethods() DefinitionAPIMethods {
-	return s.Methods
+// GetActions returns the value of Actions.
+func (s *DefinitionAPI) GetActions() DefinitionAPIActions {
+	return s.Actions
 }
 
 // SetID sets the value of ID.
@@ -294,43 +294,54 @@ func (s *DefinitionAPI) SetPath(val string) {
 	s.Path = val
 }
 
-// SetMethods sets the value of Methods.
-func (s *DefinitionAPI) SetMethods(val DefinitionAPIMethods) {
-	s.Methods = val
+// SetActions sets the value of Actions.
+func (s *DefinitionAPI) SetActions(val DefinitionAPIActions) {
+	s.Actions = val
 }
 
-// Ref: #/components/schemas/DefinitionAPIMethod
-type DefinitionAPIMethod struct {
-	Name string `json:"name"`
-	Path string `json:"path"`
+// Ref: #/components/schemas/DefinitionAPIAction
+type DefinitionAPIAction struct {
+	Name   string `json:"name"`
+	Path   string `json:"path"`
+	Method string `json:"method"`
 }
 
 // GetName returns the value of Name.
-func (s *DefinitionAPIMethod) GetName() string {
+func (s *DefinitionAPIAction) GetName() string {
 	return s.Name
 }
 
 // GetPath returns the value of Path.
-func (s *DefinitionAPIMethod) GetPath() string {
+func (s *DefinitionAPIAction) GetPath() string {
 	return s.Path
 }
 
+// GetMethod returns the value of Method.
+func (s *DefinitionAPIAction) GetMethod() string {
+	return s.Method
+}
+
 // SetName sets the value of Name.
-func (s *DefinitionAPIMethod) SetName(val string) {
+func (s *DefinitionAPIAction) SetName(val string) {
 	s.Name = val
 }
 
 // SetPath sets the value of Path.
-func (s *DefinitionAPIMethod) SetPath(val string) {
+func (s *DefinitionAPIAction) SetPath(val string) {
 	s.Path = val
 }
 
-type DefinitionAPIMethods map[string]DefinitionAPIMethod
+// SetMethod sets the value of Method.
+func (s *DefinitionAPIAction) SetMethod(val string) {
+	s.Method = val
+}
 
-func (s *DefinitionAPIMethods) init() DefinitionAPIMethods {
+type DefinitionAPIActions map[string]DefinitionAPIAction
+
+func (s *DefinitionAPIActions) init() DefinitionAPIActions {
 	m := *s
 	if m == nil {
-		m = map[string]DefinitionAPIMethod{}
+		m = map[string]DefinitionAPIAction{}
 		*s = m
 	}
 	return m

@@ -49,17 +49,18 @@ CREATE TABLE apis (
     CONSTRAINT apis_pk PRIMARY KEY (id)
 );
 
-CREATE TABLE api_methods (
+CREATE TABLE api_actions (
     name VARCHAR NOT NULL,
     api_id VARCHAR NOT NULL,
+    method VARCHAR NOT NULL,
     path VARCHAR NOT NULL,
     description VARCHAR NOT NULL,
 
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,
 
-    CONSTRAINT api_methods_pk PRIMARY KEY (name, api_id),
-    CONSTRAINT api_methods_api_id_fk FOREIGN KEY (api_id) REFERENCES apis(id)
+    CONSTRAINT api_actions_pk PRIMARY KEY (name, api_id),
+    CONSTRAINT api_actions_api_id_fk FOREIGN KEY (api_id) REFERENCES apis(id)
 );
 
 CREATE TABLE sidebars (
@@ -94,7 +95,7 @@ CREATE TABLE sidebar_links (
 DROP TABLE page_components;
 DROP TABLE components;
 DROP TABLE pages;
-DROP TABLE api_methods;
+DROP TABLE api_actions;
 DROP TABLE apis;
 DROP TABLE sidebar_links;
 DROP TABLE sidebars;

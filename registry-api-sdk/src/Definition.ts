@@ -15,20 +15,21 @@ export type Page = {
 export declare type API = {
     id: string,
     path: string,
-    methods: APIMethodMap,
+    actions: APIActionMap,
 }
 
 export declare type APIMap = {
     [key: string]: API,
 }
 
-export declare type APIMethod = {
+export declare type APIAction = {
     name: string,
     path: string,
+    method: string,
 }
 
-export declare type APIMethodMap = {
-    [key: string]: APIMethod,
+export declare type APIActionMap = {
+    [key: string]: APIAction,
 }
 
 export declare type Component = {
