@@ -53,6 +53,7 @@ export declare type SidebarLink = {
     pageName: string,
     title: string,
     children: SidebarLink[],
+    icon: string,
 }
 
 export declare type PageComponent = {
