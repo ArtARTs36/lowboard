@@ -6,7 +6,7 @@ import (
 	"github.com/artarts36/lowboard/registry/internal/port/generated/api"
 )
 
-func OptStringFromNullString(str *sql.NullString) api.OptString {
+func OptStringFromNullString(str sql.NullString) api.OptString {
 	if str.Valid {
 		return api.NewOptString(str.String)
 	}

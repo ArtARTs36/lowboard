@@ -19,5 +19,7 @@ type SidebarLink struct {
 
 	ParentID sql.NullString `db:"parent_id"`
 
+	Icon sql.NullString `db:"icon"`
+
 	Children []*SidebarLink `db:"-"`
 }

@@ -80,6 +80,7 @@ CREATE TABLE sidebar_links (
     title VARCHAR NOT NULL,
 
     parent_id VARCHAR,
+    icon VARCHAR,
 
     created_at TIMESTAMP NOT NULL,
     updated_at TIMESTAMP,

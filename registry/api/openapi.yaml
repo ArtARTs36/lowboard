@@ -521,6 +521,8 @@ components:
           type: string
         title:
           type: string
+        icon:
+          type: string
         children:
           type: array
           items:
@@ -740,6 +742,8 @@ components:
         updatedAt:
           type: string
           format: date-time
+        icon:
+          type: string
       required:
         - id
         - sidebarName
@@ -760,6 +764,8 @@ components:
           type: string
         parentId:
           type: string
+        icon:
+          type: string
       required:
         - id
         - sidebarName
@@ -777,4 +783,6 @@ components:
         title:
           type: string
         parentId:
+          type: string
+        icon:
           type: string

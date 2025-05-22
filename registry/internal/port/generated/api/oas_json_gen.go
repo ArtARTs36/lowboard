@@ -1787,6 +1787,12 @@ func (s *DefinitionSidebarLink) encodeFields(e *jx.Encoder) {
 		e.Str(s.Title)
 	}
 	{
+		if s.Icon.Set {
+			e.FieldStart("icon")
+			s.Icon.Encode(e)
+		}
+	}
+	{
 		e.FieldStart("children")
 		e.ArrStart()
 		for _, elem := range s.Children {
@@ -1796,10 +1802,11 @@ func (s *DefinitionSidebarLink) encodeFields(e *jx.Encoder) {
 	}
 }
 
-var jsonFieldsNameOfDefinitionSidebarLink = [3]string{
+var jsonFieldsNameOfDefinitionSidebarLink = [4]string{
 	0: "pageName",
 	1: "title",
-	2: "children",
+	2: "icon",
+	3: "children",
 }
 
 // Decode decodes DefinitionSidebarLink from json.
@@ -1835,8 +1842,18 @@ func (s *DefinitionSidebarLink) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"title\"")
 			}
+		case "icon":
+			if err := func() error {
+				s.Icon.Reset()
+				if err := s.Icon.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"icon\"")
+			}
 		case "children":
-			requiredBitSet[0] |= 1 << 2
+			requiredBitSet[0] |= 1 << 3
 			if err := func() error {
 				s.Children = make([]DefinitionSidebarLink, 0)
 				if err := d.Arr(func(d *jx.Decoder) error {
@@ -1863,7 +1880,7 @@ func (s *DefinitionSidebarLink) Decode(d *jx.Decoder) error {
 	// Validate required fields.
 	var failures []validate.FieldError
 	for i, mask := range [1]uint8{
-		0b00000111,
+		0b00001011,
 	} {
 		if result := (requiredBitSet[i] & mask) ^ mask; result != 0 {
 			// Mask only required fields and check equality to mask using XOR.
@@ -3273,9 +3290,15 @@ func (s *SidebarLink) encodeFields(e *jx.Encoder) {
 		e.FieldStart("updatedAt")
 		json.EncodeDateTime(e, s.UpdatedAt)
 	}
+	{
+		if s.Icon.Set {
+			e.FieldStart("icon")
+			s.Icon.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfSidebarLink = [7]string{
+var jsonFieldsNameOfSidebarLink = [8]string{
 	0: "id",
 	1: "sidebarName",
 	2: "path",
@@ -3283,6 +3306,7 @@ var jsonFieldsNameOfSidebarLink = [7]string{
 	4: "parentId",
 	5: "createdAt",
 	6: "updatedAt",
+	7: "icon",
 }
 
 // Decode decodes SidebarLink from json.
@@ -3376,6 +3400,16 @@ func (s *SidebarLink) Decode(d *jx.Decoder) error {
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"updatedAt\"")
 			}
+		case "icon":
+			if err := func() error {
+				s.Icon.Reset()
+				if err := s.Icon.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"icon\"")
+			}
 		default:
 			return d.Skip()
 		}
@@ -3463,14 +3497,21 @@ func (s *SidebarLinkCreate) encodeFields(e *jx.Encoder) {
 			s.ParentId.Encode(e)
 		}
 	}
+	{
+		if s.Icon.Set {
+			e.FieldStart("icon")
+			s.Icon.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfSidebarLinkCreate = [5]string{
+var jsonFieldsNameOfSidebarLinkCreate = [6]string{
 	0: "id",
 	1: "sidebarName",
 	2: "path",
 	3: "title",
 	4: "parentId",
+	5: "icon",
 }
 
 // Decode decodes SidebarLinkCreate from json.
@@ -3539,6 +3580,16 @@ func (s *SidebarLinkCreate) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"parentId\"")
+			}
+		case "icon":
+			if err := func() error {
+				s.Icon.Reset()
+				if err := s.Icon.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"icon\"")
 			}
 		default:
 			return d.Skip()
@@ -3635,14 +3686,21 @@ func (s *SidebarLinkUpdate) encodeFields(e *jx.Encoder) {
 			s.ParentId.Encode(e)
 		}
 	}
+	{
+		if s.Icon.Set {
+			e.FieldStart("icon")
+			s.Icon.Encode(e)
+		}
+	}
 }
 
-var jsonFieldsNameOfSidebarLinkUpdate = [5]string{
+var jsonFieldsNameOfSidebarLinkUpdate = [6]string{
 	0: "id",
 	1: "sidebarName",
 	2: "path",
 	3: "title",
 	4: "parentId",
+	5: "icon",
 }
 
 // Decode decodes SidebarLinkUpdate from json.
@@ -3702,6 +3760,16 @@ func (s *SidebarLinkUpdate) Decode(d *jx.Decoder) error {
 				return nil
 			}(); err != nil {
 				return errors.Wrap(err, "decode field \"parentId\"")
+			}
+		case "icon":
+			if err := func() error {
+				s.Icon.Reset()
+				if err := s.Icon.Decode(d); err != nil {
+					return err
+				}
+				return nil
+			}(); err != nil {
+				return errors.Wrap(err, "decode field \"icon\"")
 			}
 		default:
 			return d.Skip()

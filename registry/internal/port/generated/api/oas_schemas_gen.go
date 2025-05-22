@@ -499,6 +499,7 @@ func (s *DefinitionSidebar) SetLinks(val []DefinitionSidebarLink) {
 type DefinitionSidebarLink struct {
 	PageName string                  `json:"pageName"`
 	Title    string                  `json:"title"`
+	Icon     OptString               `json:"icon"`
 	Children []DefinitionSidebarLink `json:"children"`
 }
 
@@ -510,6 +511,11 @@ func (s *DefinitionSidebarLink) GetPageName() string {
 // GetTitle returns the value of Title.
 func (s *DefinitionSidebarLink) GetTitle() string {
 	return s.Title
+}
+
+// GetIcon returns the value of Icon.
+func (s *DefinitionSidebarLink) GetIcon() OptString {
+	return s.Icon
 }
 
 // GetChildren returns the value of Children.
@@ -525,6 +531,11 @@ func (s *DefinitionSidebarLink) SetPageName(val string) {
 // SetTitle sets the value of Title.
 func (s *DefinitionSidebarLink) SetTitle(val string) {
 	s.Title = val
+}
+
+// SetIcon sets the value of Icon.
+func (s *DefinitionSidebarLink) SetIcon(val OptString) {
+	s.Icon = val
 }
 
 // SetChildren sets the value of Children.
@@ -1003,6 +1014,7 @@ type SidebarLink struct {
 	ParentId    OptString `json:"parentId"`
 	CreatedAt   time.Time `json:"createdAt"`
 	UpdatedAt   time.Time `json:"updatedAt"`
+	Icon        OptString `json:"icon"`
 }
 
 // GetID returns the value of ID.
@@ -1040,6 +1052,11 @@ func (s *SidebarLink) GetUpdatedAt() time.Time {
 	return s.UpdatedAt
 }
 
+// GetIcon returns the value of Icon.
+func (s *SidebarLink) GetIcon() OptString {
+	return s.Icon
+}
+
 // SetID sets the value of ID.
 func (s *SidebarLink) SetID(val string) {
 	s.ID = val
@@ -1075,6 +1092,11 @@ func (s *SidebarLink) SetUpdatedAt(val time.Time) {
 	s.UpdatedAt = val
 }
 
+// SetIcon sets the value of Icon.
+func (s *SidebarLink) SetIcon(val OptString) {
+	s.Icon = val
+}
+
 // Ref: #/components/schemas/SidebarLinkCreate
 type SidebarLinkCreate struct {
 	ID          string    `json:"id"`
@@ -1082,6 +1104,7 @@ type SidebarLinkCreate struct {
 	Path        string    `json:"path"`
 	Title       string    `json:"title"`
 	ParentId    OptString `json:"parentId"`
+	Icon        OptString `json:"icon"`
 }
 
 // GetID returns the value of ID.
@@ -1109,6 +1132,11 @@ func (s *SidebarLinkCreate) GetParentId() OptString {
 	return s.ParentId
 }
 
+// GetIcon returns the value of Icon.
+func (s *SidebarLinkCreate) GetIcon() OptString {
+	return s.Icon
+}
+
 // SetID sets the value of ID.
 func (s *SidebarLinkCreate) SetID(val string) {
 	s.ID = val
@@ -1134,6 +1162,11 @@ func (s *SidebarLinkCreate) SetParentId(val OptString) {
 	s.ParentId = val
 }
 
+// SetIcon sets the value of Icon.
+func (s *SidebarLinkCreate) SetIcon(val OptString) {
+	s.Icon = val
+}
+
 // Ref: #/components/schemas/SidebarLinkUpdate
 type SidebarLinkUpdate struct {
 	ID          OptString `json:"id"`
@@ -1141,6 +1174,7 @@ type SidebarLinkUpdate struct {
 	Path        OptString `json:"path"`
 	Title       OptString `json:"title"`
 	ParentId    OptString `json:"parentId"`
+	Icon        OptString `json:"icon"`
 }
 
 // GetID returns the value of ID.
@@ -1168,6 +1202,11 @@ func (s *SidebarLinkUpdate) GetParentId() OptString {
 	return s.ParentId
 }
 
+// GetIcon returns the value of Icon.
+func (s *SidebarLinkUpdate) GetIcon() OptString {
+	return s.Icon
+}
+
 // SetID sets the value of ID.
 func (s *SidebarLinkUpdate) SetID(val OptString) {
 	s.ID = val
@@ -1191,6 +1230,11 @@ func (s *SidebarLinkUpdate) SetTitle(val OptString) {
 // SetParentId sets the value of ParentId.
 func (s *SidebarLinkUpdate) SetParentId(val OptString) {
 	s.ParentId = val
+}
+
+// SetIcon sets the value of Icon.
+func (s *SidebarLinkUpdate) SetIcon(val OptString) {
+	s.Icon = val
 }
 
 // SidebarLinksLinkIdDeleteNoContent is response for SidebarLinksLinkIdDelete operation.

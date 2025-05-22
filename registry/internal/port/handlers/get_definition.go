@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/artarts36/lowboard/registry/internal/model"
 	"github.com/artarts36/lowboard/registry/internal/port/generated/api"
+	"github.com/artarts36/lowboard/registry/internal/port/handlers/adapters"
 )
 
 func (h *Service) GetDefinition(ctx context.Context) (*api.Definition, error) {
@@ -114,6 +115,7 @@ func (h *Service) mapDefinitionsSidebars(ctx context.Context) (api.DefinitionSid
 			Title:    link.Title,
 			PageName: link.PageName,
 			Children: make([]api.DefinitionSidebarLink, len(link.Children)),
+			Icon:     adapters.OptStringFromNullString(link.Icon),
 		}
 
 		for i, child := range link.Children {
